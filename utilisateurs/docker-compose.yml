@@ -1,0 +1,50 @@
+version : '3'
+services:
+  api_chess_spring:
+    depends_on:
+      - maria_db
+      - mongo_db
+    image: api_chess
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8082"
+
+   
+
+
+  mongo_db:
+    image: mongo
+    container_name: mongo_container
+    restart: always
+    ports:
+      - 27018:27017
+    volumes:
+      - ./dataMongo:/data/db
+
+  maria_db:
+    image: mariadb
+    container_name: maria_container
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=1234
+      - MARIADB_DATABASE=data_mysql
+      - MARIADB_USER=juba
+      - MARIADB_PASSWORD=1234
+      
+    volumes:
+      - ./dataMysql:/var/lib/mysql
+
+
+volumes:
+  dataMysql:
+    driver: local
+  dataMongo:
+    driver: local
+
+
+
