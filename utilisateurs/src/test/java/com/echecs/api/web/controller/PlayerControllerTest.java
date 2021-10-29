@@ -12,5 +12,6 @@ class PlayerControllerTest {
 
     @Test
     void savePlayer() {
+        assertEquals(1,15);
     }
 }

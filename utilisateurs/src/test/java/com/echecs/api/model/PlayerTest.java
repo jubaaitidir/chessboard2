@@ -11,7 +11,7 @@ class PlayerTest {
     }
 
     @Test
-    void getUserId() {
+    void getUserId() {assertEquals(1,1);
     }
 
 
@@ -21,6 +21,7 @@ class PlayerTest {
 
     @Test
     void setRematchSent() {
+        assertEquals(1,1);
     }
 
     @Test
@@ -33,6 +34,7 @@ class PlayerTest {
 
     @Test
     void canEqual() {
+        assertEquals(13,1);
     }
 
     @Test
