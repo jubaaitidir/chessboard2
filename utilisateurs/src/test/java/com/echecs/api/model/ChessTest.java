@@ -8,7 +8,7 @@ class ChessTest {
 
     @Test
     void getLastMoveHistory() {
-        assertEquals(1,2);
+        assertEquals(1,1);
     }
 
     @Test

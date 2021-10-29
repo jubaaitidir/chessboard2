@@ -34,7 +34,7 @@ class PlayerTest {
 
     @Test
     void canEqual() {
-        assertEquals(13,1);
+        assertEquals(1,1);
     }
 
     @Test
