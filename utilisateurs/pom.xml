@@ -46,12 +46,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<!-- <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions> -->
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -62,48 +62,141 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
-				<configuration>
-					<forkCount>0</forkCount>
-					<testFailureIgnore>true</testFailureIgnore>
 
-				</configuration>
-			</plugin>
+		<plugins>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.6.3.201306030806</version>
+				<version>0.8.7</version>
+				<configuration>
+					<excludes>
+						<exclude>**/model/*.class</exclude>
+						<exclude>**/shared/*.class</exclude>
+						<exclude>**/controller/*.class</exclude>
+						<exclude>**/*.class</exclude>
+					</excludes>
+				</configuration>
 				<executions>
-					
 					<execution>
-						<id>prepare-integration-tests</id>
-						<phase>pre-integration-test</phase>
+						<id>pre-unit-test</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-						
+						<configuration>
+							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
 					</execution>
 					<execution>
-						<id>jacoco-site</id>
-						<phase>post-integration-test</phase>
+						<id>post-unit-test</id>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+						</configuration>
 					</execution>
+					<!--<execution>
+					<id>pre-integration-test</id>
+					<phase>pre-integration-test</phase>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
+					<configuration>
+						<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
+						<propertyName>failsafeArgLine</propertyName>
+					</configuration>
+				</execution>
+				<execution>
+					<id>post-integration-test</id>
+					<phase>post-integration-test</phase>
+					<goals>
+						<goal>report</goal>
+					</goals>
+					<configuration>
+						<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+						<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+					</configuration>
+				</execution> -->
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>${surefireArgLine}</argLine>
+					<excludes>
+						<exclude>**/IT*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>integration-tests</id>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<configuration>
+							<target xmlns:jacoco="antlib:org.jacoco.ant">
+
+								<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+									<classpath path="${project.build.directory}" />
+								</taskdef>
+								<jacoco:report>
+									<executiondata>
+										<file file="${project.build.directory}/coverage-reports/jacoco-ut.exec" />
+									</executiondata>
+									<structure name="Sample Tests">
+										<classfiles>
+											<fileset dir="../utilisateurs/target/classes" />
+										</classfiles>
+										<sourcefiles encoding="UTF-8">
+											<fileset dir="../utilisateurs/src" />
+										</sourcefiles>
+									</structure>
+									<html destdir="${project.build.directory}/site/jacoco" />
+								</jacoco:report>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.jacoco</groupId>
+						<artifactId>org.jacoco.ant</artifactId>
+						<version>0.8.7</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
+
 	</build>
 
 </project>

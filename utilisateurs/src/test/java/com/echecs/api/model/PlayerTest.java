@@ -21,7 +21,7 @@ class PlayerTest {
 
     @Test
     void setRematchSent() {
-        assertEquals(1,1);
+        
     }
 
     @Test
