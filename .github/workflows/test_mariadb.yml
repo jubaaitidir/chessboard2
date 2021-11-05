@@ -47,11 +47,11 @@ jobs:
       - name: Build with Maven
         run: mvn -B clean install --file ./utilisateurs/pom.xml  
 
-        env:
+        #env:
           # The hostname used to communicate with the mariadb service container
-          LOGLEVEL: debug
-          DB_HOST: maria_db
-          DB_PORT: 3306
-          DB_USER: juba
-          DB_PASSWORD: 1234
-          DB_DATABASE: data_mysql
+          # LOGLEVEL: debug
+          # DB_HOST: maria_db
+          # DB_PORT: 3306
+          # DB_USER: juba
+          # DB_PASSWORD: 1234
+          # DB_DATABASE: data_mysql
