@@ -35,13 +35,14 @@ jobs:
         image: mongo:latest
         # Provide the password for postgres
         env:
-          MARIADB_ROOT_PASSWORD: juba@1234
-          MARIADB_DATABASE: data_mongo
-          MARIADB_USER: juba
-          MARIADB_PASSWORD: juba@1234
+          MONGO_INITDB_ROOT_USERNAME: juba
+          MONGO_INITDB_ROOT_PASSWORD: juba@1234
+          MONGO_INITDB_DATABASE: data_mongo
+          
         # Set health checks to wait until postgres has started
         #--health-cmd "mysql -uroot -p'1234' --execute 'SHOW DATABASES;'"
         options: >-
+           --health-cmd mongo
            --health-interval 10s
            --health-timeout 5s
            --health-retries 5
