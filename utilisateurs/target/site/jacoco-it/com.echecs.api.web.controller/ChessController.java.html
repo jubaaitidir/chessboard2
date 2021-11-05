@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChessController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">echecs</a> &gt; <a href="index.source.html" class="el_package">com.echecs.api.web.controller</a> &gt; <span class="el_source">ChessController.java</span></div><h1>ChessController.java</h1><pre class="source lang-java linenums">package com.echecs.api.web.controller;
+
+import com.echecs.api.Repository.ChessRepo;
+import com.echecs.api.model.Chess;
+
+import com.echecs.api.shared.SequenceGeneratorService;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.Optional;
+
+@CrossOrigin(origins = &quot;*&quot;)
+@RequestMapping(&quot;Chess&quot;)
+<span class="nc" id="L20">@NoArgsConstructor</span>
+@RestController
+
+public class ChessController {
+    @Autowired
+    public  ChessRepo chessRepo;
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
+    @Autowired
+<span class="nc" id="L29">    public ChessController(ChessRepo chessRepo){</span>
+<span class="nc" id="L30">        this.chessRepo=chessRepo;</span>
+<span class="nc" id="L31">    }</span>
+
+
+    
+    /** 
+     * @return ResponseEntity&lt;?&gt;
+     */
+    @GetMapping(value = &quot;/All&quot;)
+    public ResponseEntity&lt;?&gt; listChess() {
+<span class="nc" id="L40">        HttpHeaders headers = new HttpHeaders();</span>
+        ServletUriComponentsBuilder location = ServletUriComponentsBuilder
+<span class="nc" id="L42">                .fromCurrentRequest();</span>
+<span class="nc" id="L43">        headers.setLocation(URI.create(location.toUriString()));</span>
+<span class="nc" id="L44">        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(chessRepo.findAll());</span>
+
+    }
+    
+    /** 
+     * @param id
+     * @return Optional&lt;Chess&gt;
+     */
+    @GetMapping(value = &quot;/{id}&quot;)
+    public Optional&lt;Chess&gt; chessById(@PathVariable int id) {
+
+<span class="nc" id="L55">        return chessRepo.findById(id);</span>
+    }
+
+    
+    /** 
+     * @param chess
+     * @return ResponseEntity&lt;?&gt;
+     */
+    @PostMapping(value=&quot;&quot;)
+    public ResponseEntity&lt;?&gt; saveChess(@RequestBody Chess chess) {
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (chess == null) {</span>
+<span class="nc" id="L67">            return ResponseEntity.noContent().build();</span>
+        }
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if(chessRepo.findById(chess.getIdChess()).isPresent()) {</span>
+
+<span class="nc" id="L72">            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(&quot;un chess avec cet id exite déja&quot;);</span>
+
+        }
+
+
+<span class="nc" id="L77">        chess.setIdChess(sequenceGeneratorService.generateSequence(Chess.SEQUENCE_NAME));</span>
+
+<span class="nc" id="L79">        Chess chessAded = chessRepo.save(chess);</span>
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (chessAded == null)</span>
+<span class="nc" id="L82">            return ResponseEntity.noContent().build();</span>
+
+        URI location = ServletUriComponentsBuilder
+<span class="nc" id="L85">                .fromCurrentRequest()</span>
+<span class="nc" id="L86">                .path(&quot;/{id}&quot;)</span>
+<span class="nc" id="L87">                .buildAndExpand(chessAded.getIdChess())</span>
+<span class="nc" id="L88">                .toUri();</span>
+
+<span class="nc" id="L90">        return ResponseEntity.created(location).build();</span>
+
+    }
+
+    
+    /** 
+     * @param chess
+     * @return ResponseEntity&lt;?&gt;
+     */
+    @PutMapping(value=&quot;&quot;)
+    public ResponseEntity&lt;?&gt; updateChess(@RequestBody Chess chess) {
+
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (chess == null) {</span>
+<span class="nc" id="L103">            return ResponseEntity.noContent().build();</span>
+        }
+
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if(!chessRepo.findById(chess.getIdChess()).isPresent()) {</span>
+
+<span class="nc" id="L108">            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(&quot;ce chess n'existe pas&quot;);</span>
+
+        }
+
+
+        //chess.setIdChess(sequenceGeneratorService.generateSequence(Chess.SEQUENCE_NAME));
+
+<span class="nc" id="L115">        Chess chessAded = chessRepo.save(chess);</span>
+
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if (chessAded == null)</span>
+<span class="nc" id="L118">            return ResponseEntity.noContent().build();</span>
+
+        URI location = ServletUriComponentsBuilder
+<span class="nc" id="L121">                .fromCurrentRequest()</span>
+<span class="nc" id="L122">                .path(&quot;/{id}&quot;)</span>
+<span class="nc" id="L123">                .buildAndExpand(chessAded.getIdChess())</span>
+<span class="nc" id="L124">                .toUri();</span>
+
+<span class="nc" id="L126">        return ResponseEntity.created(location).build();</span>
+
+    }
+
+
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

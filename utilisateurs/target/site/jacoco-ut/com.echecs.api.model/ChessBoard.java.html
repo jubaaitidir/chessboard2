@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChessBoard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">echecs</a> &gt; <a href="index.source.html" class="el_package">com.echecs.api.model</a> &gt; <span class="el_source">ChessBoard.java</span></div><h1>ChessBoard.java</h1><pre class="source lang-java linenums">package com.echecs.api.model;
+
+import com.echecs.api.model.family.*;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.*;
+
+//@NoArgsConstructor
+//@AllArgsConstructor
+
+/** 
+ * @return HashMap&lt;String, Square&gt;
+ */
+@Getter
+<span class="fc" id="L17">@Setter</span>
+public class ChessBoard {
+    // HashMap pour les deux couleurs White and Black
+<span class="fc" id="L20">    public static HashMap&lt;String, String&gt; colors = new HashMap&lt;&gt;();</span>
+    // positions des pieces a1,b1,...h8
+<span class="fc" id="L22">    public static List&lt;String&gt; positions = new ArrayList&lt;&gt;();</span>
+    // HashMap pour les cases cle:a1, value:Square(case)
+<span class="fc" id="L24">    private HashMap&lt;String, Square&gt; squares = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L26">    public ChessBoard() {</span>
+
+<span class="fc" id="L28">        create();</span>
+
+<span class="fc" id="L30">    }</span>
+
+<span class="fc" id="L32">    public ChessBoard(HashMap&lt;String, Square&gt; squares) {</span>
+<span class="fc" id="L33">        this.squares.putAll(squares);</span>
+
+<span class="fc" id="L35">    }</span>
+
+    private void create() {
+        // si state de chess est egale à NEW
+<span class="fc" id="L39">        colors.put(&quot;W&quot;, &quot;WHITE&quot;);</span>
+<span class="fc" id="L40">        colors.put(&quot;B&quot;, &quot;BLACK&quot;);</span>
+<span class="fc" id="L41">        positions.addAll(Arrays.asList(&quot;a1&quot;, &quot;b1&quot;, &quot;c1&quot;, &quot;d1&quot;, &quot;e1&quot;, &quot;f1&quot;, &quot;g1&quot;, &quot;h1&quot;, &quot;a2&quot;, &quot;b2&quot;, &quot;c2&quot;, &quot;d2&quot;, &quot;e2&quot;,</span>
+                &quot;f2&quot;, &quot;g2&quot;, &quot;h2&quot;, &quot;a3&quot;, &quot;b3&quot;, &quot;c3&quot;, &quot;d3&quot;, &quot;e3&quot;, &quot;f3&quot;, &quot;g3&quot;, &quot;h3&quot;, &quot;a4&quot;, &quot;b4&quot;, &quot;c4&quot;, &quot;d4&quot;, &quot;e4&quot;, &quot;f4&quot;,
+                &quot;g4&quot;, &quot;h4&quot;, &quot;a5&quot;, &quot;b5&quot;, &quot;c5&quot;, &quot;d5&quot;, &quot;e5&quot;, &quot;f5&quot;, &quot;g5&quot;, &quot;h5&quot;, &quot;a6&quot;, &quot;b6&quot;, &quot;c6&quot;, &quot;d6&quot;, &quot;e6&quot;, &quot;f6&quot;, &quot;g6&quot;,
+                &quot;h6&quot;, &quot;a7&quot;, &quot;b7&quot;, &quot;c7&quot;, &quot;d7&quot;, &quot;e7&quot;, &quot;f7&quot;, &quot;g7&quot;, &quot;h7&quot;, &quot;a8&quot;, &quot;b8&quot;, &quot;c8&quot;, &quot;d8&quot;, &quot;e8&quot;, &quot;f8&quot;, &quot;g8&quot;, &quot;h8&quot;));
+
+        /*
+         * Initiation des pieces blanches
+         */
+<span class="fc" id="L49">        squares.put(positions.get(0), new Square(new Rook(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L50">        squares.put(positions.get(1), new Square(new Knight(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L51">        squares.put(positions.get(2), new Square(new Bishop(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L52">        squares.put(positions.get(3), new Square(new Queen(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L53">        squares.put(positions.get(4), new Square(new King(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L54">        squares.put(positions.get(5), new Square(new Bishop(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L55">        squares.put(positions.get(6), new Square(new Knight(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L56">        squares.put(positions.get(7), new Square(new Rook(colors.get(&quot;W&quot;)), false));</span>
+
+<span class="fc" id="L58">        squares.put(positions.get(8), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L59">        squares.put(positions.get(9), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L60">        squares.put(positions.get(10), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L61">        squares.put(positions.get(12), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L62">        squares.put(positions.get(13), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L63">        squares.put(positions.get(14), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L64">        squares.put(positions.get(15), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+<span class="fc" id="L65">        squares.put(positions.get(16), new Square(new Pown(colors.get(&quot;W&quot;)), false));</span>
+
+        /*
+         * Initiation des cases vides
+         */
+
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        for (int ligne = 2; ligne &lt; 6; ligne++) {</span>
+<span class="fc" id="L72">            int pos_firstPB = Math.multiplyExact(8, ligne);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            for (int col = 0; col &lt; 8; col++) {</span>
+<span class="fc" id="L74">                squares.put(positions.get(pos_firstPB + col), new Square(null, true));</span>
+            }
+        }
+
+        /*
+         * Initiation des pieces Noires
+         */
+<span class="fc" id="L81">        int pos_firstPB = Math.multiplyExact(8, 6);</span>
+<span class="fc" id="L82">        squares.put(positions.get(pos_firstPB), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L83">        squares.put(positions.get(pos_firstPB + 1), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L84">        squares.put(positions.get(pos_firstPB + 2), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L85">        squares.put(positions.get(pos_firstPB + 3), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L86">        squares.put(positions.get(pos_firstPB + 4), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L87">        squares.put(positions.get(pos_firstPB + 5), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L88">        squares.put(positions.get(pos_firstPB + 6), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L89">        squares.put(positions.get(pos_firstPB + 7), new Square(new Pown(colors.get(&quot;B&quot;)), false));</span>
+
+<span class="fc" id="L91">        squares.put(positions.get(pos_firstPB + 8), new Square(new Rook(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L92">        squares.put(positions.get(pos_firstPB + 9), new Square(new Knight(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L93">        squares.put(positions.get(pos_firstPB + 10), new Square(new Bishop(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L94">        squares.put(positions.get(pos_firstPB + 11), new Square(new Queen(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L95">        squares.put(positions.get(pos_firstPB + 12), new Square(new King(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L96">        squares.put(positions.get(pos_firstPB + 13), new Square(new Bishop(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L97">        squares.put(positions.get(pos_firstPB + 14), new Square(new Knight(colors.get(&quot;B&quot;)), false));</span>
+<span class="fc" id="L98">        squares.put(positions.get(pos_firstPB + 15), new Square(new Rook(colors.get(&quot;B&quot;)), false));</span>
+
+<span class="fc" id="L100">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

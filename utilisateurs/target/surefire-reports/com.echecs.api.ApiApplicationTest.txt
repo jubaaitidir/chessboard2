@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.echecs.api.ApiApplicationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.425 s - in com.echecs.api.ApiApplicationTest

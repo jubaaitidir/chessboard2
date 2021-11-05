@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">echecs</a> &gt; <a href="index.source.html" class="el_package">com.echecs.api.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.echecs.api.model;
+
+
+
+//import lombok.Data;
+import javax.persistence.*;
+//import javax.persistence.Table;
+//import java.sql.Date;
+
+
+//@JsonIgnoreProperties(value={&quot;email&quot;,&quot;mdp&quot;})
+
+@Entity
+@Table(name=&quot;user&quot;)
+public class User {
+
+    @Id
+    @GeneratedValue
+    protected int id;
+
+    @Column(nullable = false)
+    private String nom;
+
+    private String prenom;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String mdp;
+
+
+    //constructeur par défaut
+<span class="fc" id="L34">    public User(){</span>
+
+<span class="fc" id="L36">    }</span>
+
+
+<span class="nc" id="L39">    public User(int id, String nom,String prenom, String email, String mdp){</span>
+<span class="nc" id="L40">        this.id = id;</span>
+<span class="nc" id="L41">        this.nom = nom;</span>
+<span class="nc" id="L42">        this.prenom = prenom;</span>
+<span class="nc" id="L43">        this.email = email;</span>
+<span class="nc" id="L44">        this.mdp=mdp;</span>
+<span class="nc" id="L45">    }</span>
+<span class="fc" id="L46">    public User( String nom,String prenom, String email, String mdp){</span>
+   
+<span class="fc" id="L48">        this.nom = nom;</span>
+<span class="fc" id="L49">        this.prenom = prenom;</span>
+<span class="fc" id="L50">        this.email = email;</span>
+<span class="fc" id="L51">        this.mdp=mdp;</span>
+<span class="fc" id="L52">    }</span>
+
+
+<span class="nc" id="L55">    public User(int id , String email, String mdp){</span>
+
+<span class="nc" id="L57">        this.id=id;</span>
+<span class="nc" id="L58">        this.email=email;</span>
+<span class="nc" id="L59">        this.mdp=mdp;</span>
+<span class="nc" id="L60">    }</span>
+
+<span class="nc" id="L62">    public User(int id){</span>
+
+<span class="nc" id="L64">        this.id=id;</span>
+
+<span class="nc" id="L66">    }</span>
+
+
+    
+    /** 
+     * @return int
+     */
+    public int getId() {
+<span class="fc" id="L74">        return id;</span>
+    }
+
+    
+    /** 
+     * @param id
+     */
+    public void setId(int id) {
+<span class="nc" id="L82">        this.id = id;</span>
+<span class="nc" id="L83">    }</span>
+
+    
+    /** 
+     * @return String
+     */
+    public String getNom() {
+<span class="nc" id="L90">        return nom;</span>
+    }
+
+    
+    /** 
+     * @param nom
+     */
+    public void setNom(String nom) {
+<span class="nc" id="L98">        this.nom = nom;</span>
+<span class="nc" id="L99">    }</span>
+
+    
+    /** 
+     * @return String
+     */
+    public String getPrenom() {
+<span class="nc" id="L106">        return prenom;</span>
+    }
+
+    
+    /** 
+     * @param prenom
+     */
+    public void setPrenom(String prenom) {
+<span class="nc" id="L114">        this.prenom = prenom;</span>
+<span class="nc" id="L115">    }</span>
+
+    
+    /** 
+     * @return String
+     */
+    public String getEmail() {
+<span class="nc" id="L122">        return email;</span>
+    }
+
+    
+    /** 
+     * @param email
+     */
+    public void setEmail(String email) {
+<span class="nc" id="L130">        this.email = email;</span>
+<span class="nc" id="L131">    }</span>
+
+/** 
+ * @return String
+ */
+/*
+    public Date getDate_nais() {
+        return date_nais;
+    }
+
+    public void setDate_nais(Date date_nais) {
+        this.date_nais = date_nais;
+    }
+*/
+    public String getMdp() {
+<span class="nc" id="L146">        return mdp;</span>
+    }
+
+    
+    /** 
+     * @param mdp
+     */
+    public void setMdp(String mdp) {
+<span class="nc" id="L154">        this.mdp = mdp;</span>
+<span class="nc" id="L155">    }</span>
+
+    
+    /** 
+     * @return String
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L163">        return &quot;User{&quot; +</span>
+                &quot;id=&quot; + id +
+                &quot;, nom='&quot; + nom + '\'' +
+                &quot;, prenom='&quot; + prenom + '\'' +
+                &quot;, email='&quot; + email + '\'' +
+                &quot;, mdp='&quot; + mdp + '\'' +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

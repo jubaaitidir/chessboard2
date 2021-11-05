@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pown.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">echecs</a> &gt; <a href="index.source.html" class="el_package">com.echecs.api.model.family</a> &gt; <span class="el_source">Pown.java</span></div><h1>Pown.java</h1><pre class="source lang-java linenums">package com.echecs.api.model.family;
+
+import com.echecs.api.model.Chess;
+
+import com.echecs.api.model.Piece;
+
+import lombok.Getter;
+
+import lombok.Setter;
+
+//@NoArgsConstructor
+//@AllArgsConstructor
+@Getter
+@Setter
+public class Pown extends Piece {
+    public Pown(String color){
+<span class="nc" id="L17">        super(&quot;POWN&quot;, color);</span>
+<span class="nc" id="L18">    }</span>
+
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
+    public boolean movePown(String from, String to, Chess chess){
+<span class="nc" id="L28">        int from_line= Integer.parseInt(from.substring(1,2));</span>
+<span class="nc" id="L29">        String from_col= from.substring(0,1);</span>
+<span class="nc" id="L30">        int to_line= Integer.parseInt(to.substring(1,2));</span>
+<span class="nc" id="L31">        String to_col= to.substring(0,1);</span>
+<span class="nc" id="L32">        System.out.println(&quot; fc &quot;+from_col+&quot; tc &quot;+to_col);</span>
+<span class="nc" id="L33">        Boolean isMoved= false;</span>
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(from_col.equals(to_col)) {</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            for (int i = from_line+1; i &lt;= to_line; i++) {</span>
+<span class="nc" id="L37">                String key = from_col + String.valueOf(i);</span>
+<span class="nc" id="L38">                System.out.println(key);</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">                if (!chess.getSquares().get(key).isEmpty()) {</span>
+<span class="nc" id="L40">                    System.out.println(&quot;if empty&quot;);</span>
+<span class="nc" id="L41">                    return false;</span>
+                }
+            }
+            //déplacer la piece de la case from vers la case to
+<span class="nc" id="L45">            chess.getSquares().get(to).setPiece(chess.getSquares().get(from).getPiece());</span>
+            //vider la case from
+<span class="nc" id="L47">            chess.getSquares().get(from).setEmpty(true);</span>
+<span class="nc" id="L48">            chess.getSquares().get(from).setPiece(null);</span>
+<span class="nc" id="L49">            System.out.println(&quot;deplacement....&quot;);</span>
+<span class="nc" id="L50">            isMoved=true;</span>
+        }else{
+
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if(chess.getSquares().get(to).isEmpty()){</span>
+<span class="nc" id="L54">                isMoved= false;</span>
+            }else{//*si ligne_to=lign_from+ 1 ET col_to=col_from.nextLetter
+<span class="nc" id="L56">                System.out.println(to_col.charAt(0)+&quot; ?= &quot;+from_col.charAt(0)+1);</span>
+<span class="nc" id="L57">                System.out.println(to_col.charAt(0)+&quot; ?= &quot;+from_col.charAt(0)+1);</span>
+<span class="nc bnc" id="L58" title="All 6 branches missed.">                if((to_line==from_line+1) &amp;&amp;((to_col.charAt(0)==from_col.charAt(0)+1)||(to_col.charAt(0)==from_col.charAt(0)-1))){</span>
+<span class="nc" id="L59">                    chess.getSquares().replace(to,chess.getSquares().get(from));</span>
+<span class="nc" id="L60">                    chess.getSquares().get(from).setEmpty(true);</span>
+<span class="nc" id="L61">                    isMoved=true;</span>
+                }
+
+
+            }
+        }
+
+
+<span class="nc" id="L69">    return isMoved;</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

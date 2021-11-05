@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Session.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">echecs</a> &gt; <a href="index.source.html" class="el_package">com.echecs.api.model</a> &gt; <span class="el_source">Session.java</span></div><h1>Session.java</h1><pre class="source lang-java linenums">package com.echecs.api.model;
+
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+//import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc" id="L14">@AllArgsConstructor</span>
+//@NoArgsConstructor
+@Getter
+<span class="nc" id="L17">@Setter</span>
+<span class="nc bnc" id="L18" title="All 20 branches missed.">@Data</span>
+@Document(collection = &quot;session&quot;)
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return List&lt;Integer&gt;
+ */
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return int
+ */
+public class Session {
+    @Transient
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return String
+ */
+    public static final String SEQUENCE_NAME = &quot;sessions_sequence&quot;;
+
+    @Id
+<span class="nc" id="L57">    private int idSession;</span>
+    @Field(name = &quot;list_id_chess&quot;)
+<span class="nc" id="L59">    private List&lt;Integer&gt; listIdChess;</span>
+    @Field(&quot;idWhitePlayer&quot;)
+<span class="nc" id="L61">    private int idWhitePlayer;</span>
+    @Field(&quot;idBlackPlayer&quot;)
+<span class="nc" id="L63">    private int idBlackPlayer;</span>
+    //@Column(name=&quot;state_chess&quot;)
+    //private int state;
+
+<span class="nc" id="L67">    public Session(){</span>
+<span class="nc" id="L68">        listIdChess= new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L69">    }</span>
+
+    
+    /** 
+     * @param id
+     */
+    public void addIdChess(int id){
+<span class="nc" id="L76">        listIdChess.add(id);</span>
+<span class="nc" id="L77">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

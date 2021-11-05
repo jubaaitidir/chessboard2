@@ -1,0 +1,8 @@
+com\echecs\api\web\controller\ChessControllerTest.class
+com\echecs\api\ApiApplicationTest.class
+com\echecs\api\model\integration\SessionSIT.class
+com\echecs\api\model\ChessTest.class
+com\echecs\api\Repository\PlayerRepoTest.class
+com\echecs\api\model\ChessBoardTest.class
+com\echecs\api\Repository\UserRepoTest.class
+com\echecs\api\model\PlayerTest.class

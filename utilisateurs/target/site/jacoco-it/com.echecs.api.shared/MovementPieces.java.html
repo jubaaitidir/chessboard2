@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MovementPieces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">echecs</a> &gt; <a href="index.source.html" class="el_package">com.echecs.api.shared</a> &gt; <span class="el_source">MovementPieces.java</span></div><h1>MovementPieces.java</h1><pre class="source lang-java linenums">package com.echecs.api.shared;
+
+import com.echecs.api.model.Chess;
+import com.echecs.api.model.ChessBoard;
+import com.echecs.api.model.Session;
+import com.echecs.api.model.Square;
+
+import org.bson.json.JsonObject;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+<span class="nc" id="L14">public class MovementPieces {</span>
+
+    //récupérer la liste des cases
+<span class="nc" id="L17">    public static List&lt;String&gt; liste_cases = Arrays.asList(&quot;a1&quot;,&quot;b1&quot;,&quot;c1&quot;,&quot;d1&quot;,&quot;e1&quot;,&quot;f1&quot;,&quot;g1&quot;,&quot;h1&quot;,&quot;a2&quot;,&quot;b2&quot;,&quot;c2&quot;,&quot;d2&quot;,&quot;e2&quot;,&quot;f2&quot;,&quot;g2&quot;,&quot;h2&quot;,&quot;a3&quot;,&quot;b3&quot;,&quot;c3&quot;,&quot;d3&quot;,&quot;e3&quot;,&quot;f3&quot;,&quot;g3&quot;,&quot;h3&quot;,&quot;a4&quot;,&quot;b4&quot;,&quot;c4&quot;,&quot;d4&quot;,&quot;e4&quot;,&quot;f4&quot;,&quot;g4&quot;,&quot;h4&quot;,&quot;a5&quot;,&quot;b5&quot;,&quot;c5&quot;,&quot;d5&quot;,&quot;e5&quot;,&quot;f5&quot;,&quot;g5&quot;,&quot;h5&quot;,&quot;a6&quot;,&quot;b6&quot;,&quot;c6&quot;,&quot;d6&quot;,&quot;e6&quot;,&quot;f6&quot;,&quot;g6&quot;,&quot;h6&quot;,&quot;a7&quot;,&quot;b7&quot;,&quot;c7&quot;,&quot;d7&quot;,&quot;e7&quot;,&quot;f7&quot;,&quot;g7&quot;,&quot;h7&quot;,&quot;a8&quot;,&quot;b8&quot;,&quot;c8&quot;,&quot;d8&quot;,&quot;e8&quot;,&quot;f8&quot;,&quot;g8&quot;,&quot;h8&quot;);</span>
+
+
+
+
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @param idPlayer
+     * @param session
+     * @return JsonObject
+     */
+    public static JsonObject movePiece(String from, String to, Chess chess, int idPlayer, Session session){
+        //JsonObject response = new JsonObject(new String(&quot;{'message':'ces pieces ne vous appartiennent pas ! '}&quot;));
+<span class="nc" id="L33">        int idBlackPlayer = session.getIdBlackPlayer();</span>
+<span class="nc" id="L34">        int idWhitePlayer = session.getIdWhitePlayer();</span>
+        //System.out.println(from);
+        //System.out.println(chess.getSquares().get(from).getPiece().getColor());
+
+        //piece is present in case from
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if(chess.getSquares().get(from).isEmpty()){</span>
+<span class="nc" id="L40">            return new JsonObject(new String(&quot;{'aucune pièce à déplacer, la case depart est vide! '}&quot;));</span>
+        }
+
+<span class="nc" id="L43">        System.out.println(&quot;destination &quot;+to);</span>
+<span class="nc" id="L44">        System.out.println(&quot;chessboard positions &quot;+ChessBoard.positions);</span>
+<span class="nc" id="L45">        System.out.println(&quot;liste cases &quot;+liste_cases);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if(liste_cases.contains(to) == false){</span>
+<span class="nc" id="L47">            return new JsonObject(new String(&quot;{'la case destination n'appartient à l'échequier! '}&quot;));</span>
+        }
+        //couleur de la pièce à déplacer
+<span class="nc" id="L50">        String color=chess.getSquares().get(from).getPiece().getColor();</span>
+        //si la couleur des pièces sont différente de la couleur du player
+<span class="nc bnc" id="L52" title="All 8 branches missed.">        if(((color == &quot;BLACK&quot;) &amp;&amp; (idPlayer != idBlackPlayer) ) ||((color == &quot;WHITE&quot;) &amp;&amp; (idPlayer != idWhitePlayer))){</span>
+<span class="nc" id="L53">            return new JsonObject(new String(&quot;{'message':'ces pieces ne vous appartiennent pas ! '}&quot;));</span>
+        }else{
+<span class="nc" id="L55">            Square square_from=chess.getSquares().get(from);</span>
+<span class="nc" id="L56">            Square square_to=chess.getSquares().get(to);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if(!square_to.isEmpty()) {</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                if (Objects.equals(square_from.getPiece().getColor().toString(), square_to.getPiece().getColor().toString())) {</span>
+<span class="nc" id="L59">                    return new JsonObject(new String(&quot;{'message':'case destination occupée, par une de vos pieces! '}&quot;));</span>
+                }
+            }
+        }
+
+<span class="nc bnc" id="L64" title="All 7 branches missed.">        switch(chess.getSquares().get(from).getPiece().getFamily()){</span>
+
+            case &quot;POWN&quot;:
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                return  (movePown(from, to, chess)) ? ( new JsonObject(new String(&quot;{'message':'move executed'}&quot;))) : ( new JsonObject(new String(&quot;{'message':'deplacement du pion refuse'}&quot;)));</span>
+            case &quot;ROOK&quot;:
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                return  (moveRook(from, to, chess)) ? ( new JsonObject(new String(&quot;{'message':'move executed'}&quot;))) : ( new JsonObject(new String(&quot;{'message':'deplacement de la tour refuse'}&quot;)));</span>
+            case &quot;KNIGHT&quot;:
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                return  (movePown(from, to, chess)) ? ( new JsonObject(new String(&quot;{'message':'move executed'}&quot;))) : ( new JsonObject(new String(&quot;{'message':'deplacement du pion refuse'}&quot;)));</span>
+            case &quot;BISHOP&quot;:
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                return  (movePown(from, to, chess)) ? ( new JsonObject(new String(&quot;{'message':'move executed'}&quot;))) : ( new JsonObject(new String(&quot;{'message':'deplacement du pion refuse'}&quot;)));</span>
+            case &quot;KING&quot;:
+<span class="nc bnc" id="L75" title="All 2 branches missed.">                return  (movePown(from, to, chess)) ? ( new JsonObject(new String(&quot;{'message':'move executed'}&quot;))) : ( new JsonObject(new String(&quot;{'message':'deplacement du pion refuse'}&quot;)));</span>
+            case &quot;QUEEN&quot;:
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                return  (movePown(from, to, chess)) ? ( new JsonObject(new String(&quot;{'message':'move executed'}&quot;))) : ( new JsonObject(new String(&quot;{'message':'deplacement du pion refuse'}&quot;)));</span>
+
+            default:
+<span class="nc" id="L80">                return new JsonObject(new String(&quot;{'message':'famille ou couleur de la piece incorrecte'}&quot;));</span>
+
+        }
+
+    }
+
+
+
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
+    public static boolean movePown(String from, String to, Chess chess){
+        //traitement de la query de l'url pour récupérer les lignes et colonnes.
+<span class="nc" id="L97">        int from_line= Integer.parseInt(from.substring(1,2));</span>
+<span class="nc" id="L98">        String from_col= from.substring(0,1);</span>
+<span class="nc" id="L99">        int to_line= Integer.parseInt(to.substring(1,2));</span>
+<span class="nc" id="L100">        String to_col= to.substring(0,1);</span>
+        //System.out.println(&quot; fc &quot;+from_col+&quot; tc &quot;+to_col);
+<span class="nc" id="L102">        Boolean isMoved= false;</span>
+
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if(from_col.equals(to_col)) {</span>
+            // deplacement de 1 ou 2 cases seulement
+<span class="nc bnc" id="L106" title="All 4 branches missed.">            if((to_line - from_line) == 1 || (to_line - from_line)== 2 ){</span>
+                //vérifier  que les cases se trouvant entre la case de départ et destination sont vides
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                for (int i = from_line+1; i &lt;= to_line; i++) {</span>
+<span class="nc" id="L109">                    String key = from_col + String.valueOf(i);</span>
+<span class="nc" id="L110">                    System.out.println(key);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                    if (!chess.getSquares().get(key).isEmpty()) {</span>
+                        //System.out.println(&quot;if empty&quot;);
+<span class="nc" id="L113">                        return false;</span>
+                    }
+                }
+
+            //déplacer la piece de la case from vers la case to
+<span class="nc" id="L118">            chess.getSquares().get(to).setPiece(chess.getSquares().get(from).getPiece());</span>
+<span class="nc" id="L119">            chess.getSquares().get(to).setEmpty(false);</span>
+            //vider la case from
+<span class="nc" id="L121">            chess.getSquares().get(from).setEmpty(true);</span>
+<span class="nc" id="L122">            chess.getSquares().get(from).setPiece(null);</span>
+<span class="nc" id="L123">            System.out.println(&quot;deplacement....&quot;);</span>
+<span class="nc" id="L124">            isMoved=true;</span>
+            }else{
+<span class="nc" id="L126">                isMoved= false;</span>
+            }
+        }else{
+
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            if(chess.getSquares().get(to).isEmpty()){</span>
+<span class="nc" id="L131">                isMoved= false;</span>
+            }else{//*si ligne_to=lign_from+ 1 ET col_to=col_from.nextLetter
+                //System.out.println(to_col.charAt(0)+&quot; ?= &quot;+from_col.charAt(0)+1);
+
+<span class="nc bnc" id="L135" title="All 6 branches missed.">                if((to_line==from_line+1) &amp;&amp;((to_col.charAt(0)==from_col.charAt(0)+1)||(to_col.charAt(0)==from_col.charAt(0)-1))){</span>
+<span class="nc" id="L136">                    chess.getSquares().replace(to,chess.getSquares().get(from));</span>
+<span class="nc" id="L137">                    chess.getSquares().get(from).setEmpty(true);</span>
+<span class="nc" id="L138">                    isMoved=true;</span>
+                }
+
+
+            }
+        }
+
+<span class="nc" id="L145">        return isMoved;</span>
+
+    }
+
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
+    public static boolean moveRook(String from, String to, Chess chess){
+        //traitement de la query de l'url pour récupérer les lignes et colonnes.
+<span class="nc" id="L158">        int from_line= Integer.parseInt(from.substring(1,2));</span>
+<span class="nc" id="L159">        String from_col= from.substring(0,1);</span>
+<span class="nc" id="L160">        int to_line= Integer.parseInt(to.substring(1,2));</span>
+<span class="nc" id="L161">        String to_col= to.substring(0,1);</span>
+        //System.out.println(&quot; fc &quot;+from_col+&quot; tc &quot;+to_col);
+
+<span class="nc" id="L164">        Boolean isMoved= false;</span>
+
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        if(from_col.equals(to_col)) {</span>
+
+                //vérifier  que les cases de la meme colonne se trouvant entre la case de départ et destination sont vides
+<span class="nc bnc" id="L169" title="All 2 branches missed.">                for (int i = from_line + 1; i &lt;= to_line; i++) {</span>
+<span class="nc" id="L170">                    String key = from_col + String.valueOf(i);</span>
+<span class="nc" id="L171">                    System.out.println(key);</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">                    if (!chess.getSquares().get(key).isEmpty()) {</span>
+                        //System.out.println(&quot;if empty&quot;);
+<span class="nc" id="L174">                        return false;</span>
+                    }
+                }
+
+                //déplacer la piece de la case from vers la case to
+<span class="nc" id="L179">                chess.getSquares().get(to).setPiece(chess.getSquares().get(from).getPiece());</span>
+<span class="nc" id="L180">                chess.getSquares().get(to).setEmpty(false);</span>
+                //vider la case from
+<span class="nc" id="L182">                chess.getSquares().get(from).setEmpty(true);</span>
+<span class="nc" id="L183">                chess.getSquares().get(from).setPiece(null);</span>
+<span class="nc" id="L184">                System.out.println(&quot;deplacement....&quot;);</span>
+<span class="nc" id="L185">                isMoved = true;</span>
+
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        }else if(from_line==to_line){</span>
+            //vérifier  que les cases de la meme ligne se trouvant entre la case de départ et destination sont vides
+
+<span class="nc" id="L190">            int nb_to_col=(int) to.substring(0,1).charAt(0);</span>
+<span class="nc" id="L191">            System.out.println(nb_to_col);</span>
+<span class="nc" id="L192">            int nb_from_col=(int) from.substring(0,1).charAt(0);</span>
+<span class="nc" id="L193">            System.out.println(nb_from_col);</span>
+           // int nb_col_deplacement = nb_to_col - nb_from_col;
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            if(nb_from_col &gt; nb_to_col) {</span>
+                //System.out.println(nb_col_deplacement);
+<span class="nc" id="L197">                int pos_depart = nb_from_col - 1;</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">                for (int pos_col=pos_depart; pos_col &gt;=nb_to_col; pos_col--) {</span>
+
+<span class="nc" id="L200">                    System.out.println(&quot;pos col&quot; + pos_col);</span>
+<span class="nc" id="L201">                    System.out.println(&quot;mon lettre from&quot; + (char) pos_col);</span>
+                    //System.out.println(&quot;nb deplacement &quot; + nb_col_deplacement);
+
+<span class="nc" id="L204">                    String key = ((char) (pos_col)) + String.valueOf(from_line);</span>
+<span class="nc" id="L205">                    System.out.println(&quot;key : &quot; + key);</span>
+
+<span class="nc bnc" id="L207" title="All 2 branches missed.">                    if (!chess.getSquares().get(key).isEmpty()) {</span>
+<span class="nc" id="L208">                        System.out.println(&quot;if not empty return ...&quot;);</span>
+<span class="nc" id="L209">                        return false;</span>
+                    }
+                }
+
+<span class="nc" id="L213">            }else{</span>
+
+<span class="nc bnc" id="L215" title="All 2 branches missed.">                for (int pos_col=nb_from_col + 1 ; pos_col &lt;=nb_to_col; pos_col++) {</span>
+
+<span class="nc" id="L217">                    String key = ((char) (pos_col)) + String.valueOf(from_line);</span>
+<span class="nc" id="L218">                    System.out.println(&quot;key : &quot; + key);</span>
+
+<span class="nc bnc" id="L220" title="All 2 branches missed.">                    if (!chess.getSquares().get(key).isEmpty()) {</span>
+<span class="nc" id="L221">                        System.out.println(&quot;if not empty return ...&quot;);</span>
+<span class="nc" id="L222">                        return false;</span>
+                    }
+                }
+
+            }
+            //déplacer la piece de la case from vers la case to
+<span class="nc" id="L228">            chess.getSquares().get(to).setPiece(chess.getSquares().get(from).getPiece());</span>
+<span class="nc" id="L229">            chess.getSquares().get(to).setEmpty(false);</span>
+            //vider la case from
+<span class="nc" id="L231">            chess.getSquares().get(from).setEmpty(true);</span>
+<span class="nc" id="L232">            chess.getSquares().get(from).setPiece(null);</span>
+<span class="nc" id="L233">            System.out.println(&quot;deplacement....&quot;);</span>
+<span class="nc" id="L234">            isMoved = true;</span>
+
+<span class="nc" id="L236">        }else{</span>
+<span class="nc" id="L237">            return false;</span>
+
+        }
+
+<span class="nc" id="L241">        return isMoved;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
