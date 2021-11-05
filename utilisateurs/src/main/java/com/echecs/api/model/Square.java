@@ -7,6 +7,14 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
+
+/** 
+ * @return Piece
+ */
+
+/** 
+ * @return boolean
+ */
 @Getter
 @Setter
 public class Square {

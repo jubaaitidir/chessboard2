@@ -6,6 +6,22 @@ import lombok.NoArgsConstructor;
 
 
 
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return String
+ */
 @Data
 @NoArgsConstructor
 

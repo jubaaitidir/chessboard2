@@ -17,6 +17,13 @@ public class Pown extends Piece {
         super("POWN", color);
     }
 
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
     public boolean movePown(String from, String to, Chess chess){
         int from_line= Integer.parseInt(from.substring(1,2));
         String from_col= from.substring(0,1);

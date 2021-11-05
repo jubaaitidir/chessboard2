@@ -22,6 +22,10 @@ public class PlayerController {
     @Autowired
     private UserRepo userRepo;
 
+    
+    /** 
+     * @return List<User>
+     */
     @GetMapping(value= "/Players")
     public List<User> getAllPlayers() {
         List<User> listPlayers = new ArrayList<>();
@@ -34,6 +38,11 @@ public class PlayerController {
         return listPlayers;
     }
 
+    
+    /** 
+     * @param id
+     * @return ResponseEntity<?>
+     */
     @GetMapping(value = "/Players/{id}")
     public ResponseEntity<?> userById(@PathVariable int id) {
         Optional <User> user = userRepo.findById(id);
@@ -47,6 +56,11 @@ public class PlayerController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
     }
 
+    
+    /** 
+     * @param player
+     * @return ResponseEntity<?>
+     */
     @PostMapping(value= "/Players")
     public ResponseEntity<?> savePlayer(@RequestBody Player player) {
 
@@ -74,6 +88,11 @@ public class PlayerController {
 
     }
 
+    
+    /** 
+     * @param id
+     * @return ResponseEntity<?>
+     */
     @DeleteMapping(value="/Players/{id}")
     public ResponseEntity<?> deletePlayer(@PathVariable int id){
         Optional<User> user = playerRepo.findById(id);

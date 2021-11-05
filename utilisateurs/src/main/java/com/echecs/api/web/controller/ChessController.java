@@ -31,6 +31,10 @@ public class ChessController {
     }
 
 
+    
+    /** 
+     * @return ResponseEntity<?>
+     */
     @GetMapping(value = "/All")
     public ResponseEntity<?> listChess() {
         HttpHeaders headers = new HttpHeaders();
@@ -40,12 +44,22 @@ public class ChessController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(chessRepo.findAll());
 
     }
+    
+    /** 
+     * @param id
+     * @return Optional<Chess>
+     */
     @GetMapping(value = "/{id}")
     public Optional<Chess> chessById(@PathVariable int id) {
 
         return chessRepo.findById(id);
     }
 
+    
+    /** 
+     * @param chess
+     * @return ResponseEntity<?>
+     */
     @PostMapping(value="")
     public ResponseEntity<?> saveChess(@RequestBody Chess chess) {
 
@@ -77,6 +91,11 @@ public class ChessController {
 
     }
 
+    
+    /** 
+     * @param chess
+     * @return ResponseEntity<?>
+     */
     @PutMapping(value="")
     public ResponseEntity<?> updateChess(@RequestBody Chess chess) {
 

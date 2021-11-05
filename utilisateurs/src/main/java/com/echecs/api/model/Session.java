@@ -17,8 +17,40 @@ import java.util.List;
 @Setter
 @Data
 @Document(collection = "session")
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return List<Integer>
+ */
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return int
+ */
 public class Session {
     @Transient
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return String
+ */
     public static final String SEQUENCE_NAME = "sessions_sequence";
 
     @Id
@@ -36,6 +68,10 @@ public class Session {
         listIdChess= new ArrayList<>();
     }
 
+    
+    /** 
+     * @param id
+     */
     public void addIdChess(int id){
         listIdChess.add(id);
     }

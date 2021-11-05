@@ -14,18 +14,34 @@ public class DatabaseSequence {
 
     public DatabaseSequence() {}
 
+    
+    /** 
+     * @return String
+     */
     public String getId() {
         return id;
     }
 
+    
+    /** 
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getSeq() {
         return seq;
     }
 
+    
+    /** 
+     * @param seq
+     */
     public void setSeq(int seq) {
         this.seq = seq;
     }

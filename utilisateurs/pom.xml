@@ -45,13 +45,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-				</exclusion>
-			</exclusions>
+		    <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -74,10 +78,11 @@
 				<version>0.8.7</version>
 				<configuration>
 					<excludes>
+						<!--<exclude>**/Repository/*.class</exclude>
 						<exclude>**/model/*.class</exclude>
 						<exclude>**/shared/*.class</exclude>
 						<exclude>**/controller/*.class</exclude>
-						<exclude>**/*.class</exclude>
+						 <exclude>**/*.class</exclude> -->
 					</excludes>
 				</configuration>
 				<executions>
@@ -102,28 +107,28 @@
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
-					<!--<execution>
-					<id>pre-integration-test</id>
-					<phase>pre-integration-test</phase>
-					<goals>
-						<goal>prepare-agent</goal>
-					</goals>
-					<configuration>
-						<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
-						<propertyName>failsafeArgLine</propertyName>
-					</configuration>
-				</execution>
-				<execution>
-					<id>post-integration-test</id>
-					<phase>post-integration-test</phase>
-					<goals>
-						<goal>report</goal>
-					</goals>
-					<configuration>
-						<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
-						<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-					</configuration>
-				</execution> -->
+					<execution>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
+							<propertyName>failsafeArgLine</propertyName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>post-integration-test</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 
@@ -134,11 +139,11 @@
 					<argLine>${surefireArgLine}</argLine>
 					<excludes>
 						<exclude>**/IT*.java</exclude>
-					</excludes>
+					</excludes> 
 				</configuration>
 			</plugin>
 
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<executions>
@@ -153,11 +158,12 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>-->
-			<plugin>
+			</plugin>
+			<!-- <plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>3.0.0</version>
 				<executions>
+
 					<execution>
 						<phase>prepare-package</phase>
 						<configuration>
@@ -170,7 +176,7 @@
 									<executiondata>
 										<file file="${project.build.directory}/coverage-reports/jacoco-ut.exec" />
 									</executiondata>
-									<structure name="Sample Tests">
+									<structure name="Units Tests">
 										<classfiles>
 											<fileset dir="../utilisateurs/target/classes" />
 										</classfiles>
@@ -194,7 +200,8 @@
 						<version>0.8.7</version>
 					</dependency>
 				</dependencies>
-			</plugin>
+			</plugin> -->
+		
 		</plugins>
 
 	</build>

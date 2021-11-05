@@ -14,8 +14,44 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return List<String>
+ */
+
+/** 
+ * @return HashMap<String, Square>
+ */
+
+/** 
+ * @return State
+ */
+
+/** 
+ * @return int
+ */
 @Getter
 @Setter
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return String
+ */
 @Data
 @Document(collection = "chess")
 public class Chess {

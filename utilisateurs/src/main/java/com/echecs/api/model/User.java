@@ -43,6 +43,14 @@ public class User {
         this.email = email;
         this.mdp=mdp;
     }
+    public User( String nom,String prenom, String email, String mdp){
+   
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.mdp=mdp;
+    }
+
 
     public User(int id , String email, String mdp){
 
@@ -58,37 +66,73 @@ public class User {
     }
 
 
+    
+    /** 
+     * @return int
+     */
     public int getId() {
         return id;
     }
 
+    
+    /** 
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getNom() {
         return nom;
     }
 
+    
+    /** 
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getPrenom() {
         return prenom;
     }
 
+    
+    /** 
+     * @param prenom
+     */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getEmail() {
         return email;
     }
 
+    
+    /** 
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
+
+/** 
+ * @return String
+ */
 /*
     public Date getDate_nais() {
         return date_nais;
@@ -102,10 +146,18 @@ public class User {
         return mdp;
     }
 
+    
+    /** 
+     * @param mdp
+     */
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "User{" +

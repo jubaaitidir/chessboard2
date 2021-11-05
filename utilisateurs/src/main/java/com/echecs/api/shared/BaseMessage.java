@@ -4,6 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/** 
+ * @return String
+ */
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return int
+ */
+
+/** 
+ * @return String
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

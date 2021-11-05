@@ -20,6 +20,11 @@ public class SequenceGeneratorService {
         this.mongoOperations = mongoOperations;
     }
 
+    
+    /** 
+     * @param seqName
+     * @return int
+     */
     public int generateSequence(String seqName) {
 
         DatabaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),

@@ -33,6 +33,10 @@ public class SessionController {
     private SequenceGeneratorService sequenceGeneratorService;
 
 
+    
+    /** 
+     * @return ResponseEntity<?>
+     */
     @RequestMapping(value = "/Sessions", method = RequestMethod.GET)
     public ResponseEntity<?> listSessions() {
         HttpHeaders headers = new HttpHeaders();
@@ -43,12 +47,22 @@ public class SessionController {
 
     }
 
+    
+    /** 
+     * @param id
+     * @return Optional<Session>
+     */
     @GetMapping(value = "/Sessions/{id}")
     public Optional<Session> sessionById(@PathVariable int id) {
 
         return sessionRepo.findById(id);
     }
 
+    
+    /** 
+     * @param session
+     * @return ResponseEntity<?>
+     */
     @PostMapping(value = "/Sessions")
     public ResponseEntity<?> saveSession(@RequestBody Session session) {
 
@@ -131,6 +145,15 @@ public class SessionController {
 
     }
 
+    
+    /** 
+     * @param idSession
+     * @param idChess
+     * @param idPlayer
+     * @param from
+     * @param to
+     * @return ResponseEntity<?>
+     */
     @PostMapping(value="Sessions/{idSession}/{idChess}/move")
     public ResponseEntity<?> movePiece(@PathVariable int idSession,@PathVariable int idChess,@RequestParam Optional<Integer> idPlayer,@RequestParam Optional<String> from,@RequestParam Optional<String> to) {
 

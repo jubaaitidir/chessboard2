@@ -9,6 +9,10 @@ import java.util.*;
 
 //@NoArgsConstructor
 //@AllArgsConstructor
+
+/** 
+ * @return HashMap<String, Square>
+ */
 @Getter
 @Setter
 public class ChessBoard {

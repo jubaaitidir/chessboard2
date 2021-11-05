@@ -23,6 +23,10 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
+    
+    /** 
+     * @return ResponseEntity<?>
+     */
     @RequestMapping(value = "/Users", method = RequestMethod.GET)
     public ResponseEntity<?> listUsers() {
         HttpHeaders headers = new HttpHeaders();
@@ -33,12 +37,22 @@ public class UserController {
 
     }
 
+    
+    /** 
+     * @param id
+     * @return Optional<User>
+     */
     @GetMapping(value = "/Users/{id}")
     public Optional<User> userById(@PathVariable int id) {
 
         return userRepo.findById(id);
     }
 
+    
+    /** 
+     * @param user
+     * @return ResponseEntity<?>
+     */
     @PostMapping(value = "/Users/post")
     public ResponseEntity<?> saveUser(@RequestBody User user) {
 
@@ -68,6 +82,12 @@ public class UserController {
 
     }
 
+    
+    /** 
+     * @param id
+     * @param user
+     * @return ResponseEntity<?>
+     */
     @PutMapping(value = "/Users/{id}")
     public ResponseEntity<?> updateUser(@PathVariable int id ,@RequestBody User user) {
 
@@ -92,6 +112,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("utilisateur mis à jour");
 
     }
+
+/** 
+ * @param id
+ * @return ResponseEntity<?>
+ */
 // fonction à revoir supprime mais ne renvoie pas le bon status
     @DeleteMapping(value="/Users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable int id){

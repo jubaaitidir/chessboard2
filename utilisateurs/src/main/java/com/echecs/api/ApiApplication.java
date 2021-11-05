@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "*")
 public class ApiApplication {
 
+	
+	/** 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}

@@ -19,6 +19,15 @@ public class MovementPieces {
 
 
 
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @param idPlayer
+     * @param session
+     * @return JsonObject
+     */
     public static JsonObject movePiece(String from, String to, Chess chess, int idPlayer, Session session){
         //JsonObject response = new JsonObject(new String("{'message':'ces pieces ne vous appartiennent pas ! '}"));
         int idBlackPlayer = session.getIdBlackPlayer();
@@ -76,6 +85,13 @@ public class MovementPieces {
 
 
 
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
     public static boolean movePown(String from, String to, Chess chess){
         //traitement de la query de l'url pour récupérer les lignes et colonnes.
         int from_line= Integer.parseInt(from.substring(1,2));
@@ -130,6 +146,13 @@ public class MovementPieces {
 
     }
 
+    
+    /** 
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
     public static boolean moveRook(String from, String to, Chess chess){
         //traitement de la query de l'url pour récupérer les lignes et colonnes.
         int from_line= Integer.parseInt(from.substring(1,2));

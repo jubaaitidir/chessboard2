@@ -8,7 +8,31 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 
 
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return boolean
+ */
+
+/** 
+ * @return int
+ */
 @EqualsAndHashCode(callSuper = true)
+
+/** 
+ * @return String
+ */
+
+/** 
+ * @return Instant
+ */
+
+/** 
+ * @return String
+ */
 @Data
 @NoArgsConstructor
 public class Message extends BaseMessage {
