@@ -30,7 +30,7 @@ jobs:
            --health-retries 5
         #   --expose 5306 not needed because the app is on the same workflow
         
-        mongo_db:
+      mongo_db:
         # Docker Hub image
         image: mongo:latest
         # Provide the password for postgres
