@@ -1,4 +1,4 @@
-name: MariaDB service example
+name: MariaDB and mongoDB service example
 on: push
 
 jobs:
@@ -29,6 +29,23 @@ jobs:
            --health-timeout 5s
            --health-retries 5
         #   --expose 5306 not needed because the app is on the same workflow
+        
+        mongo_db:
+        # Docker Hub image
+        image: mongo:latest
+        # Provide the password for postgres
+        env:
+          MARIADB_ROOT_PASSWORD: juba@1234
+          MARIADB_DATABASE: data_mongo
+          MARIADB_USER: juba
+          MARIADB_PASSWORD: juba@1234
+        # Set health checks to wait until postgres has started
+        #--health-cmd "mysql -uroot -p'1234' --execute 'SHOW DATABASES;'"
+        options: >-
+           --health-interval 10s
+           --health-timeout 5s
+           --health-retries 5
+          # Set health checks to wait until MONGO has started
     steps:
       # - name: Git support longpaths
       #   run: git config --global core.longpaths true
