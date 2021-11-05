@@ -49,7 +49,6 @@ jobs:
 
         env:
           # The hostname used to communicate with the mariadb service container
-         
           LOGLEVEL: debug
           DB_HOST: maria_db
           DB_PORT: 3306
