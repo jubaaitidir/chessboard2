@@ -80,39 +80,6 @@ public class Chess {
 
     }
 
-    // @JsonIgnore
-    /*
-     * public String getLastMoveHistory(){ return moveHistory.get(moveHistory.size()
-     * - 1); }
-     * 
-     * public void afficheChess(){ //System.out.println(this.idChess);
-     * System.out.println(this.newPart.getSquares().get("a1").getPiece().getFamily()
-     * +" "+this.newPart.getSquares().get("a1").getPiece().getColor()+" "+this.
-     * newPart.getSquares().get("a1").isEmpty());
-     * System.out.println(this.newPart.getSquares().get("b2").getPiece().getFamily()
-     * +" "+this.newPart.getSquares().get("b2").getPiece().getColor());
-     * System.out.println(this.newPart.getSquares().get("c3").getPiece()+" "+this.
-     * newPart.getSquares().get("c3").getPiece()+" "+this.newPart.getSquares().get(
-     * "c3").isEmpty());
-     * System.out.println(this.newPart.getSquares().get("d4").getPiece()
-     * +" "+this.newPart.getSquares().get("d4").getPiece()+" "+this.newPart.
-     * getSquares().get("d4").isEmpty());
-     * System.out.println(this.newPart.getSquares().get("e5").getPiece()
-     * +" "+this.newPart.getSquares().get("e5").getPiece());
-     * System.out.println(this.newPart.getSquares().get("f6").getPiece()
-     * +" "+this.newPart.getSquares().get("f6").getPiece()+" "+this.newPart.
-     * getSquares().get("f6").isEmpty());
-     * System.out.println(this.newPart.getSquares().get("g7").getPiece().getFamily()
-     * +" "+this.newPart.getSquares().get("g7").getPiece().getColor());
-     * System.out.println(this.newPart.getSquares().get("h8").getPiece().getFamily()
-     * +" "+this.newPart.getSquares().get("h8").getPiece().getColor()+" "+this.
-     * newPart.getSquares().get("h8").isEmpty());
-     * 
-     * 
-     * System.out.println(this.state); System.out.println(this.time + " seconde");
-     * System.out.println(this.moveHistory);
-     * 
-     * }
-     */
+
 
 }

@@ -168,10 +168,6 @@ public class SessionController {
             // save a new chess after modif
             chessController.updateChess(chess);
 
-            // System.out.println(chess.getSquares().get(from.get()).isEmpty());
-            // System.out.println(chess.getSquares().get(from.get()).getPiece());
-            // System.out.println(chess.getSquares().get(to.get()).isEmpty());
-            // System.out.println(chess.getSquares().get(to.get()).getPiece());
 
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("le chess n'appartient pas à cette session ou le player ne joue pas dans cette session");

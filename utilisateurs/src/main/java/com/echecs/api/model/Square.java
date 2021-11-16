@@ -20,9 +20,5 @@ import lombok.Setter;
 public class Square {
     private Piece piece;
     private boolean empty;
-/*
-    public Square(Piece piece) {
-        this.piece =piece;
-        this.empty=true;
-    }*/
+
 }

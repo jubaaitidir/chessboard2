@@ -22,9 +22,4 @@ import lombok.Setter;
 public class Piece {
     private String family;
     private String color;
-
-
-
-   
-
 }
