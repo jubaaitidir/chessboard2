@@ -2,6 +2,7 @@ package com.echecs.api.shared;
 
 import com.echecs.api.model.Chess;
 import com.echecs.api.model.ChessBoard;
+import com.echecs.api.model.Piece;
 import com.echecs.api.model.Session;
 import com.echecs.api.model.Square;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class MovementPieces {
@@ -21,6 +23,7 @@ public class MovementPieces {
             "e4", "f4", "g4", "h4", "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5", "a6", "b6", "c6", "d6", "e6", "f6",
             "g6", "h6", "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7", "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8");
 
+
     /**
      * @param from
      * @param to
@@ -30,21 +33,17 @@ public class MovementPieces {
      * @return JsonObject
      */
     public static JsonObject movePiece(String from, String to, Chess chess, int idPlayer, Session session) {
-        // JsonObject response = new JsonObject(new String("{'message':'ces pieces ne
-        // vous appartiennent pas ! '}"));
+       
         int idBlackPlayer = session.getIdBlackPlayer();
         int idWhitePlayer = session.getIdWhitePlayer();
-        // System.out.println(from);
-        // System.out.println(chess.getSquares().get(from).getPiece().getColor());
+
 
         // piece is present in case from
         if (chess.getSquares().get(from).isEmpty()) {
             return new JsonObject(new String("{'aucune pièce à déplacer, la case depart est vide! '}"));
         }
 
-        // System.out.println("destination "+to);
-        // System.out.println("chessboard positions "+ChessBoard.positions);
-        // System.out.println("liste cases "+liste_cases);
+  
         if (liste_cases.contains(from) == false || liste_cases.contains(to) == false) {
             return new JsonObject(new String("{'la case départ/destination n'appartient à l'échequier! '}"));
         }
@@ -111,12 +110,23 @@ public class MovementPieces {
         String from_col = from.substring(0, 1);
         int to_line = Integer.parseInt(to.substring(1, 2));
         String to_col = to.substring(0, 1);
-        // System.out.println(" fc "+from_col+" tc "+to_col);
+   
+        
+        int nb_to_col = (int) to.substring(0, 1).charAt(0);
+     
+        int nb_from_col = (int) from.substring(0, 1).charAt(0);
+       
+        String key_to=((char) (nb_to_col)) + String.valueOf(to_line);
+        String key_locked_right_up=((char) (nb_to_col+1)) + String.valueOf(to_line+1);
+        String key_locked_left_up=((char) (nb_to_col-1)) + String.valueOf(to_line+1);
+        String key_locked_rd=((char) (nb_to_col+1)) + String.valueOf(to_line-1);
+        String key_locked_ld=((char) (nb_to_col-1)) + String.valueOf(to_line-1);
         Boolean isMoved = false;
 
         if (from_col.equals(to_col)) {
             // deplacement de 1 ou 2 cases seulement
-            if ((to_line - from_line) == 1 || (to_line - from_line) == 2) {
+            if (((to_line - from_line) == 1 || (to_line - from_line) == 2)
+                && chess.getSquares().get(from).getPiece().getColor().equals("WHITE")) {
                 // vérifier que les cases se trouvant entre la case de départ et destination
                 // sont vides
                 for (int i = from_line + 1; i <= to_line; i++) {
@@ -136,7 +146,16 @@ public class MovementPieces {
                 chess.getSquares().get(from).setPiece(null);
                 System.out.println("deplacement....");
                 isMoved = true;
-            } else if ((to_line - from_line) == -1 || (to_line - from_line) == -2) {
+
+                //ajouter les cases bloqués pour le roi noir
+                List<String> list_locked_up=new ArrayList<String>();
+                list_locked_up.addAll(Arrays.asList(key_locked_left_up,key_locked_right_up));
+                chess.getList_locked_black_king().put(key_to,list_locked_up);
+                
+                System.out.println(chess.getList_locked_black_king());
+
+            } else if (((to_line - from_line) == -1 || (to_line - from_line) == -2) 
+                && chess.getSquares().get(from).getPiece().getColor().equals("BLACK") ) {
                 // vérifier que les cases se trouvant entre la case de départ et destination
                 // sont vides
                 for (int i = from_line - 1; i >= to_line; i--) {
@@ -157,6 +176,11 @@ public class MovementPieces {
                 System.out.println("deplacement....");
                 isMoved = true;
 
+                //ajouter les cases bloqués pour le roi noir
+                //locked_cases_white_king.add(key_locked_ld);
+                //locked_cases_white_king.add(key_locked_rd);
+                //System.out.println(locked_cases_white_king);
+
             } else {
                 isMoved = false;
             }
@@ -168,10 +192,26 @@ public class MovementPieces {
                     // System.out.println(to_col.charAt(0)+" ?= "+from_col.charAt(0)+1);
 
                 if ((to_line == from_line + 1) && ((to_col.charAt(0) == from_col.charAt(0) + 1)
-                        || (to_col.charAt(0) == from_col.charAt(0) - 1))) {
+                        || (to_col.charAt(0) == from_col.charAt(0) - 1))
+                        && chess.getSquares().get(from).getPiece().getColor().equals("WHITE")) {
+
                     chess.getSquares().replace(to, chess.getSquares().get(from));
                     chess.getSquares().get(from).setEmpty(true);
                     isMoved = true;
+                        //ajouter les cases bloqués pour le roi noir
+                    //locked_cases_black_king.add(key_locked_right_up);
+                    //locked_cases_black_king.add(key_locked_left_up);
+
+                }else if((to_line == from_line - 1) && ((to_col.charAt(0) == from_col.charAt(0) + 1)
+                        || (to_col.charAt(0) == from_col.charAt(0) - 1))
+                        && chess.getSquares().get(from).getPiece().getColor().equals("BLACK")){
+                    chess.getSquares().replace(to, chess.getSquares().get(from));
+                    chess.getSquares().get(from).setEmpty(true);
+                    isMoved = true;
+                       //ajouter les cases bloqués pour le roi noir
+                    //locked_cases_white_king.add(key_locked_ld); 
+                    //locked_cases_white_king.add(key_locked_rd);
+
                 }
 
             }
@@ -277,6 +317,12 @@ public class MovementPieces {
         return isMoved;
     }
 
+    /**
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
     public static boolean moveBishop(String from, String to, Chess chess) {
         Boolean isMoved = false;
 
@@ -374,6 +420,12 @@ public class MovementPieces {
         return isMoved;
     }
 
+    /**
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
     public static boolean moveKnight(String from, String to, Chess chess) {
         // traitement de la query de l'url pour récupérer les lignes et colonnes.
         int from_line = Integer.parseInt(from.substring(1, 2));
@@ -410,6 +462,12 @@ public class MovementPieces {
         return isMoved;
     }
 
+    /**
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
     public static boolean moveQueen(String from, String to, Chess chess) {
         // traitement de la query de l'url pour récupérer les lignes et colonnes.
         int from_line = Integer.parseInt(from.substring(1, 2));
@@ -575,18 +633,44 @@ public class MovementPieces {
         return isMoved;
     }
 
+    /**
+     * @param from
+     * @param to
+     * @param chess
+     * @return boolean
+     */
     public static boolean moveKing(String from, String to, Chess chess) {
         // traitement de la query de l'url pour récupérer les lignes et colonnes.
         int from_line = Integer.parseInt(from.substring(1, 2));
-        //String from_col = from.substring(0, 1);
+        String from_col = from.substring(0, 1);
         int to_line = Integer.parseInt(to.substring(1, 2));
-        //String to_col = to.substring(0, 1);
+        String to_col = to.substring(0, 1);
 
         int nb_to_col = (int) to.substring(0, 1).charAt(0);
         // System.out.println(nb_to_col);
         int nb_from_col = (int) from.substring(0, 1).charAt(0);
         // System.out.println(nb_from_col);
         Boolean isMoved = false;
+
+        /*List<String> free_cases_king = new ArrayList<String>();
+        // soit les cases qui entourent le king sont bloquées par d'autre pieces
+        // adversaire
+        // soit les cases couvertes par les pieces adversaires incluent la case du king
+
+        // et destination sont vides
+        for (int j = nb_from_col - 1; j < 2; j++) {
+            for (int i = from_line - 1; i < 2; i++) {
+                String key = from_col + String.valueOf(i);
+                System.out.println(key);
+                if (chess.getSquares().containsKey(key) && chess.getSquares().get(key).isEmpty()) {
+                    // System.out.println("if empty");
+                    free_cases_king.add(key);
+                }
+            }
+        }
+        System.out.println(free_cases_king);
+        blocked_cases(from, to, chess, free_cases_king);
+        */
         if (Math.abs(to_line - from_line) == 1 || Math.abs(nb_to_col - nb_from_col) == 1) {
 
             // déplacer la piece de la case from vers la case to
@@ -603,4 +687,63 @@ public class MovementPieces {
         return isMoved;
     }
 
+    /*public static List<String> blocked_cases(String from, String to, Chess chess, List free_cases_king) {
+        // traitement de la query de l'url pour récupérer les lignes et colonnes.
+        int from_line = Integer.parseInt(from.substring(1, 2));
+        String from_col = from.substring(0, 1);
+        int to_line = Integer.parseInt(to.substring(1, 2));
+        String to_col = to.substring(0, 1);
+
+        int nb_to_col = (int) to.substring(0, 1).charAt(0);
+        // System.out.println(nb_to_col);
+        int nb_from_col = (int) from.substring(0, 1).charAt(0);
+        // System.out.println(nb_from_col);
+        
+        
+        
+        String color = chess.getSquares().get(from).getPiece().getColor();
+        List<String> chess_king = new ArrayList<String>();
+        List<Piece> list_pieces_opponent = new ArrayList<Piece>();
+        Boolean isMoved = false;
+
+
+        // chercher toutes les pièces de l'adversaire (pieces noires)
+        for(int i=0; i<=free_cases_king.size();i++){
+            int nb_col_dest=(int)free_cases_king.get(i).toString().substring(0, 1).charAt(0);
+            int line_dest= free_cases_king.get(i).toString().substring(1, 2).charAt(0);
+            int direction_col=Math.abs(nb_from_col - nb_col_dest);
+            int direction_ligne=Math.abs(from_line - line_dest);
+
+            
+            
+        }
+
+
+
+
+
+        if (color.equals("WHITE")) {
+            for (Map.Entry<String, Square> square : chess.getSquares().entrySet()) {
+                if (square.getValue().getPiece().getColor() == "BLACK") {
+                    list_pieces_opponent.add(square.getValue().getPiece());
+                }
+            }
+            System.out.println(list_pieces_opponent);
+            chess_king = chess_white_king;
+
+        } else {
+            // chercher toutes les pièces de l'adversaire (pieces blanches)
+            if (color.equals("BLACK")) {
+                for (Map.Entry<String, Square> square : chess.getSquares().entrySet()) {
+                    if (square.getValue().getPiece().getColor() == "WHITE") {
+                        list_pieces_opponent.add(square.getValue().getPiece());
+                    }
+                }
+                System.out.println(list_pieces_opponent);
+                chess_king = chess_black_king;
+            }
+        }
+
+        return chess_king;
+    }*/
 }

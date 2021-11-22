@@ -22,6 +22,10 @@ public class ChessBoard {
     public static List<String> positions = new ArrayList<>();
     // HashMap pour les cases cle:a1, value:Square(case)
     private HashMap<String, Square> squares = new HashMap<>();
+    // HashMap pour les cases bloques pour le king white
+    private HashMap<String,List<String>> list_locked_white_king= new HashMap<>();
+    // HashMap pour les cases bloques pour le king black
+    private HashMap<String,List<String>> list_locked_black_king= new HashMap<>();
 
     public ChessBoard() {
 
@@ -55,14 +59,12 @@ public class ChessBoard {
         squares.put(positions.get(6), new Square(new Knight(colors.get("W")), false));
         squares.put(positions.get(7), new Square(new Rook(colors.get("W")), false));
 
-        squares.put(positions.get(8), new Square(new Pown(colors.get("W")), false));
-        squares.put(positions.get(9), new Square(new Pown(colors.get("W")), false));
-        squares.put(positions.get(10), new Square(new Pown(colors.get("W")), false));
-        squares.put(positions.get(12), new Square(new Pown(colors.get("W")), false));
-        squares.put(positions.get(13), new Square(new Pown(colors.get("W")), false));
-        squares.put(positions.get(14), new Square(new Pown(colors.get("W")), false));
-        squares.put(positions.get(15), new Square(new Pown(colors.get("W")), false));
-        squares.put(positions.get(16), new Square(new Pown(colors.get("W")), false));
+        for(int pos=8;pos<=15;pos++){
+            squares.put(positions.get(pos), new Square(new Pown(colors.get("W")), false));
+        }
+
+       
+
 
         /*
          * Initiation des cases vides
@@ -79,14 +81,10 @@ public class ChessBoard {
          * Initiation des pieces Noires
          */
         int pos_firstPB = Math.multiplyExact(8, 6);
-        squares.put(positions.get(pos_firstPB), new Square(new Pown(colors.get("B")), false));
-        squares.put(positions.get(pos_firstPB + 1), new Square(new Pown(colors.get("B")), false));
-        squares.put(positions.get(pos_firstPB + 2), new Square(new Pown(colors.get("B")), false));
-        squares.put(positions.get(pos_firstPB + 3), new Square(new Pown(colors.get("B")), false));
-        squares.put(positions.get(pos_firstPB + 4), new Square(new Pown(colors.get("B")), false));
-        squares.put(positions.get(pos_firstPB + 5), new Square(new Pown(colors.get("B")), false));
-        squares.put(positions.get(pos_firstPB + 6), new Square(new Pown(colors.get("B")), false));
-        squares.put(positions.get(pos_firstPB + 7), new Square(new Pown(colors.get("B")), false));
+        for(int i=0;i<=7;i++){
+            squares.put(positions.get(pos_firstPB + i), new Square(new Pown(colors.get("B")), false));
+        }
+  
 
         squares.put(positions.get(pos_firstPB + 8), new Square(new Rook(colors.get("B")), false));
         squares.put(positions.get(pos_firstPB + 9), new Square(new Knight(colors.get("B")), false));
@@ -97,6 +95,57 @@ public class ChessBoard {
         squares.put(positions.get(pos_firstPB + 14), new Square(new Knight(colors.get("B")), false));
         squares.put(positions.get(pos_firstPB + 15), new Square(new Rook(colors.get("B")), false));
 
+        /**
+         * initialisation des cases locked for kings
+         */
+        /**
+         * cases locked for black king
+         */
+        
+        List<String> list_locked_up= squares.get(positions.get(8)).getPiece().getList_locked();
+        
+        list_locked_up.add(positions.get(17));
+        list_locked_black_king.put(positions.get(8),list_locked_up);
+
+        for(int pos=9;pos<=14;pos++){
+            
+            list_locked_up= squares.get(positions.get(pos)).getPiece().getList_locked();
+             
+            list_locked_up.addAll(Arrays.asList(positions.get(pos + 8 - 1),positions.get(pos + 8 + 1)));
+            System.out.println(list_locked_up);
+            list_locked_black_king.put(positions.get(pos), list_locked_up);
+           
+            System.out.println(list_locked_black_king);
+        }
+        list_locked_up= squares.get(positions.get(15)).getPiece().getList_locked();
+        list_locked_up.add(positions.get(22));
+        list_locked_black_king.put(positions.get(15),list_locked_up);
+        System.out.println(list_locked_black_king);
+
+          /**
+         * cases locked for black king
+         */
+        
+        List<String> list_locked_down= squares.get(positions.get(pos_firstPB)).getPiece().getList_locked();
+        
+        list_locked_down.add(positions.get(pos_firstPB-8+1));
+        list_locked_white_king.put(positions.get(pos_firstPB),list_locked_down);
+
+       
+        for(int pos=1;pos<=6;pos++){
+            
+            list_locked_down= squares.get(positions.get(pos+pos_firstPB)).getPiece().getList_locked();
+             
+            list_locked_down.addAll(Arrays.asList(positions.get(pos +pos_firstPB- 8 - 1),positions.get(pos +pos_firstPB- 8 + 1)));
+            System.out.println(list_locked_down);
+            list_locked_white_king.put(positions.get(pos+pos_firstPB), list_locked_down);
+           
+            System.out.println(list_locked_black_king);
+        }
+        list_locked_down= squares.get(positions.get(pos_firstPB+7)).getPiece().getList_locked();
+        list_locked_down.add(positions.get(pos_firstPB-2));
+        list_locked_white_king.put(positions.get(pos_firstPB+7),list_locked_down);
+        System.out.println(list_locked_white_king);
     }
 
 }

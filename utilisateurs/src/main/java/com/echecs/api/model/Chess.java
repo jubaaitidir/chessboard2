@@ -62,6 +62,11 @@ public class Chess {
     private int idChess;
     @Field(value = "listMouvement")
     private List<String> moveHistory;
+    @Field(value = "listLockedWhiteKing")
+    private HashMap<String,List<String>> list_locked_white_king;
+    @Field(value = "list_locked_black_king")
+    private HashMap<String,List<String>> list_locked_black_king;
+  
 
     @Field(value = "squares")
     private HashMap<String, Square> squares;
@@ -77,7 +82,8 @@ public class Chess {
 
         this.time = 0;
         this.moveHistory = new ArrayList<String>();
-
+        this.list_locked_white_king=new ChessBoard().getList_locked_white_king();
+        this.list_locked_black_king=new ChessBoard().getList_locked_black_king();
     }
 
 

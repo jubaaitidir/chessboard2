@@ -1,5 +1,7 @@
 package com.echecs.api.model.family;
 
+import java.util.ArrayList;
+
 import com.echecs.api.model.Piece;
 import lombok.Getter;
 
@@ -11,6 +13,6 @@ import lombok.Setter;
 @Setter
 public class King extends Piece {
     public King(String color){
-        super("KING", color);
+        super("KING", color,new ArrayList<String>());
     }
 }
