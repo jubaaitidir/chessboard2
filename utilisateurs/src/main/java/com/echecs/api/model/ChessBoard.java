@@ -103,23 +103,37 @@ public class ChessBoard {
          */
         
         List<String> list_locked_up= squares.get(positions.get(8)).getPiece().getList_locked();
-        
+        List<String> list_locked_up_copy = new ArrayList<String>();
+
         list_locked_up.add(positions.get(17));
-        list_locked_black_king.put(positions.get(8),list_locked_up);
+        list_locked_up_copy.add(positions.get(17));
+        
+        list_locked_black_king.put(positions.get(8),list_locked_up_copy);
 
         for(int pos=9;pos<=14;pos++){
             
             list_locked_up= squares.get(positions.get(pos)).getPiece().getList_locked();
-             
+            
             list_locked_up.addAll(Arrays.asList(positions.get(pos + 8 - 1),positions.get(pos + 8 + 1)));
-            System.out.println(list_locked_up);
-            list_locked_black_king.put(positions.get(pos), list_locked_up);
+            
+                  
+            list_locked_up_copy = new ArrayList<String>();
+            list_locked_up_copy.addAll(list_locked_up);
+
+
+            
+            System.out.println(list_locked_up_copy);
+            list_locked_black_king.put(positions.get(pos), list_locked_up_copy);
            
             System.out.println(list_locked_black_king);
         }
         list_locked_up= squares.get(positions.get(15)).getPiece().getList_locked();
         list_locked_up.add(positions.get(22));
-        list_locked_black_king.put(positions.get(15),list_locked_up);
+       
+        list_locked_up_copy = new ArrayList<String>();
+        list_locked_up_copy.addAll(list_locked_up);
+       
+        list_locked_black_king.put(positions.get(15),list_locked_up_copy);
         System.out.println(list_locked_black_king);
 
           /**
@@ -129,22 +143,35 @@ public class ChessBoard {
         List<String> list_locked_down= squares.get(positions.get(pos_firstPB)).getPiece().getList_locked();
         
         list_locked_down.add(positions.get(pos_firstPB-8+1));
-        list_locked_white_king.put(positions.get(pos_firstPB),list_locked_down);
+
+        List<String> list_locked_down_copy = new ArrayList<String>();
+        list_locked_down_copy.addAll(list_locked_down);
+
+        list_locked_white_king.put(positions.get(pos_firstPB),list_locked_down_copy);
 
        
         for(int pos=1;pos<=6;pos++){
             
             list_locked_down= squares.get(positions.get(pos+pos_firstPB)).getPiece().getList_locked();
-             
+            
+            list_locked_down_copy = new ArrayList<String>();
+            
             list_locked_down.addAll(Arrays.asList(positions.get(pos +pos_firstPB- 8 - 1),positions.get(pos +pos_firstPB- 8 + 1)));
-            System.out.println(list_locked_down);
-            list_locked_white_king.put(positions.get(pos+pos_firstPB), list_locked_down);
+            list_locked_down_copy.addAll(list_locked_down);
+            
+            System.out.println(list_locked_down_copy);
+
+            list_locked_white_king.put(positions.get(pos+pos_firstPB), list_locked_down_copy);
            
             System.out.println(list_locked_black_king);
         }
         list_locked_down= squares.get(positions.get(pos_firstPB+7)).getPiece().getList_locked();
         list_locked_down.add(positions.get(pos_firstPB-2));
-        list_locked_white_king.put(positions.get(pos_firstPB+7),list_locked_down);
+
+        list_locked_down_copy = new ArrayList<String>();
+        list_locked_down_copy.addAll(list_locked_down);
+
+        list_locked_white_king.put(positions.get(pos_firstPB+7),list_locked_down_copy);
         System.out.println(list_locked_white_king);
     }
 
