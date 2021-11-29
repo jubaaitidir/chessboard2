@@ -172,9 +172,6 @@ public class SessionController {
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("le chess n'appartient pas à cette session ou le player ne joue pas dans cette session");
         }
-
-
-
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response.toString());
     }
 
