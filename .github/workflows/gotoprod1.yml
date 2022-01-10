@@ -34,7 +34,9 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          wc -l ./src/index.css
-          wc -l ./public/index.html
-          wc -l ./src/index.js
-          wc -l ./src/components/*.js
+          wc -l ./utilisateurs/src/main/java/com/echecs/api/Repository/*.java
+          wc -l ./utilisateurs/src/main/java/com/echecs/api/model/*.java
+          wc -l ./utilisateurs/src/main/java/com/echecs/api/model/family/*.java
+          wc -l ./utilisateurs/src/main/java/com/echecs/api/shared/*.java
+          wc -l ./utilisateurs/src/main/java/com/echecs/api/web/controller/*.java
+          wc -l ./utilisateurs/src/main/java/com/echecs/api/*.java
