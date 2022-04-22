@@ -1,2 +1,2 @@
 # chessboard2
-Jeux d'echec simple Front End en JavaScript et Back End en Springboot
+Jeux d'echec simple Back End en java et Springboot
